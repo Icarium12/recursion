@@ -34,28 +34,36 @@ function fibsRec(n, t1 = 0, t2 = 1, nextTerm, arr = []) {
 
 
 function mergeSort(arr, newArr = []) {
-    const sortedArr = []
     if (arr.length === 0 || arr.length === 1) {
-        return newArr.push(...sortedArr);
+        return newArr;
     }
 
     const midpoint = Math.floor(arr.length / 2);
 
     const leftHalf = arr.slice(0, midpoint);
     console.log(leftHalf);
+    
 
     const rightHalf = arr.slice(midpoint);
     console.log(rightHalf);
 
-    if (leftHalf[0] > rightHalf[0]) {
-        sortedArr[0] = rightHalf[0];
+    if (leftHalf.length === 1 && rightHalf.length === 1) {
+        const newSort = [];
+        const tempArr = [];
+        if (leftHalf[0] > rightHalf[0]) {
+            tempArr[0] = rightHalf[0];
+            tempArr[1] = leftHalf[0]
+        }
+        else {
+            tempArr[0] = leftHalf[0];
+            tempArr[1] = rightHalf[0];           
+        }
+        newSort.push(...tempArr);
+        console.log(newSort);
+        newArr.push(...tempArr);
     }
 
-    else {
-        sortedArr[0] = leftHalf[0];
-    }
-
-    return mergeSort(leftHalf, sortedArr);
+    return mergeSort(leftHalf, rightHalf);
     
 }
 
