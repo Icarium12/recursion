@@ -69,3 +69,59 @@ function mergeSort(arr, newArr = []) {
 
 const mergeTest = mergeSort([1, 4, 7, 3, 5, 2, 6, 8]);
 console.log(mergeTest);
+
+const array = [40, 10, 30, 20];
+const sortedArr = [...array].sort((a, b) => a - b);
+console.log(sortedArr);
+
+const twoArray = [2, 1, 3, 5, 4];
+
+
+function mSort(
+    arr,
+    lsplits = [],
+    rsplits = [],
+    midpoint = Math.ceil(arr.length / 2),
+    leftHalf = arr.slice(0, midpoint),
+    rightHalf = arr.slice(midpoint)
+) {
+    if (arr.length === 0 || arr.length === 1) {
+        console.log(rsplits);
+        return lsplits;
+    }
+
+    lsplits.push(leftHalf);
+    rsplits.push(rightHalf);
+
+    console.log(`midpoint: ${midpoint}`)
+    console.log(leftHalf);
+    console.log(rightHalf);
+
+    return mSort(leftHalf, lsplits, rsplits);
+
+
+    
+}
+
+console.log("*********************")
+
+console.log(mSort(twoArray));
+
+
+    // if (leftHalf.length == 1 && rightHalf.length == 1) {
+    //     if (leftHalf[0] > rightHalf[0]) {
+    //         sortedArr.push(rightHalf[0]);
+    //         sortedArr.push(...leftHalf);
+    //         console.log(sortedArr + " print");
+    //         return sortedArr;
+    //     }
+    //     else if (leftHalf[0] < rightHalf[0]) {
+    //         sortedArr.push(leftHalf[0]);
+    //         sortedArr.push(...rightHalf);
+    //         console.log(sortedArr + " print");
+    //         return sortedArr;
+    //     }
+    // }
+    // else {
+    //     return mSort(leftHalf);
+    // }
