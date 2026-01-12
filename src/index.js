@@ -87,11 +87,30 @@ function mSort(
 ) {
     if (arr.length === 0 || arr.length === 1) {
         console.log(rsplits);
+        console.log(leftHalf);
+        // rsplits.forEach(element => {
+        //     const split = element;
+        //     if (split.length > 1) {
+        //         mSort(split);
+        //     }
+        //     else {
+
+        //     }
+        // })
         return lsplits;
+
+        rsplits.forEach(split => {
+            if (split.length === 1) {
+                sort
+            }
+        })
+
+        
+
     }
 
-    lsplits.push(leftHalf);
-    rsplits.push(rightHalf);
+    lsplits.unshift(leftHalf);
+    rsplits.unshift(rightHalf);
 
     console.log(`midpoint: ${midpoint}`)
     console.log(leftHalf);
@@ -103,25 +122,78 @@ function mSort(
     
 }
 
-console.log("*********************")
+function mergeSplit(lsplit, rsplit, sortedArr = []) {
+    const lowestLeft = Math.min(...lsplit);
+    const lowestRight = Math.min(...rsplit);
 
-console.log(mSort(twoArray));
+    if (lowestLeft < lowestRight) {
+        sortedArr.push(lowestLeft);
+        const index = lsplit.indexOf(lowestLeft);
+        if (index > -1) {
+            lsplit.splice(index, 1);
+        }
+        if (lsplit.length === 0) {
+            sortedArr.push(...rsplit);
+            return sortedArr
+        }
+        else {
+            return mergeSplit(lsplit, rsplit, sortedArr);
+        }
+    }
+    else {
+        sortedArr.push(lowestRight);
+        const index = rsplit.indexOf(lowestRight);
+        if (index > -1) {
+            rsplit.splice(index, 1);
+        }
+        if (rsplit.length === 0) {
+            sortedArr.push(...lsplit);
+            return sortedArr;
+        }
+        else {
+            return mergeSplit(lsplit, rsplit, sortedArr);
+        }
+    }
+}
 
 
-    // if (leftHalf.length == 1 && rightHalf.length == 1) {
-    //     if (leftHalf[0] > rightHalf[0]) {
-    //         sortedArr.push(rightHalf[0]);
-    //         sortedArr.push(...leftHalf);
-    //         console.log(sortedArr + " print");
-    //         return sortedArr;
-    //     }
-    //     else if (leftHalf[0] < rightHalf[0]) {
-    //         sortedArr.push(leftHalf[0]);
-    //         sortedArr.push(...rightHalf);
-    //         console.log(sortedArr + " print");
-    //         return sortedArr;
-    //     }
-    // }
-    // else {
-    //     return mSort(leftHalf);
-    // }
+
+
+function sort(arr, arr2, sortedArr = []) {
+    if (arr.length === 0) {
+        sortedArr.push(...arr2);
+        arr.push(...arr2)
+        console.log(arr[0])
+        return sortedArr;
+    }
+
+    else if (arr2.length === 0) {
+        sortedArr.push(...arr);
+        arr.push(...arr2);
+        return sortedArr;
+    }
+    
+    if (arr[0] < arr2[0]) {
+        sortedArr.push(arr[0]);
+        arr[1] = sortedArr;
+        arr.shift();
+        return sort(arr, arr2);
+    }
+    else {
+        sortedArr.push(arr2[0]);
+        arr[1] = sortedArr;
+        arr2.shift();
+        arr[0] = sortedArr; 
+        return sort (arr, arr2);
+    }
+}
+
+console.log("*********************");
+
+// console.log(mSort(twoArray));
+
+
+const left = [2, 1];
+const right = [3];
+console.log(mergeSplit(left, right));
+
