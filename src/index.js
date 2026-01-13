@@ -70,14 +70,10 @@ function mergeSort(arr, newArr = []) {
 const mergeTest = mergeSort([1, 4, 7, 3, 5, 2, 6, 8]);
 console.log(mergeTest);
 
-const array = [40, 10, 30, 20];
-const sortedArr = [...array].sort((a, b) => a - b);
-console.log(sortedArr);
-
 const twoArray = [2, 1, 3, 5, 4];
 
 
-function mSort(
+function mergeSort(
     arr,
     lsplits = [],
     rsplits = [],
@@ -86,40 +82,23 @@ function mSort(
     rightHalf = arr.slice(midpoint)
 ) {
     if (arr.length === 0 || arr.length === 1) {
-        console.log(rsplits);
-        console.log(leftHalf);
-        // rsplits.forEach(element => {
-        //     const split = element;
-        //     if (split.length > 1) {
-        //         mSort(split);
-        //     }
-        //     else {
-
-        //     }
-        // })
-        return lsplits;
-
+        let sorted;
         rsplits.forEach(split => {
-            if (split.length === 1) {
-                sort
+            if (split.length > 1) {
+                split = mergeSort(split);
             }
-        })
+            sorted = mergeSplit(leftHalf, split);
+            leftHalf = sorted;
+        });
 
-        
-
+        return leftHalf;
     }
 
     lsplits.unshift(leftHalf);
     rsplits.unshift(rightHalf);
 
-    console.log(`midpoint: ${midpoint}`)
-    console.log(leftHalf);
-    console.log(rightHalf);
+    return mergeSort(leftHalf, lsplits, rsplits);
 
-    return mSort(leftHalf, lsplits, rsplits);
-
-
-    
 }
 
 function mergeSplit(lsplit, rsplit, sortedArr = []) {
@@ -158,42 +137,9 @@ function mergeSplit(lsplit, rsplit, sortedArr = []) {
 
 
 
-
-function sort(arr, arr2, sortedArr = []) {
-    if (arr.length === 0) {
-        sortedArr.push(...arr2);
-        arr.push(...arr2)
-        console.log(arr[0])
-        return sortedArr;
-    }
-
-    else if (arr2.length === 0) {
-        sortedArr.push(...arr);
-        arr.push(...arr2);
-        return sortedArr;
-    }
-    
-    if (arr[0] < arr2[0]) {
-        sortedArr.push(arr[0]);
-        arr[1] = sortedArr;
-        arr.shift();
-        return sort(arr, arr2);
-    }
-    else {
-        sortedArr.push(arr2[0]);
-        arr[1] = sortedArr;
-        arr2.shift();
-        arr[0] = sortedArr; 
-        return sort (arr, arr2);
-    }
-}
-
+console.log("*********************");
+console.log(mergeSort([105, 79, 100, 110]));
 console.log("*********************");
 
-// console.log(mSort(twoArray));
 
-
-const left = [2, 1];
-const right = [3];
-console.log(mergeSplit(left, right));
 
